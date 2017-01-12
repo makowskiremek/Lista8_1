@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8"/>
+<style type="text/css">
+	.container {
+		width: 100%;
+		margin: 0.5em auto 0.5em auto;
+		padding: 0.5em;
+	}
+	.button {
+	border-radius: 8px;
+	background-color: #008CBA;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+	font-size:1.25em;
+	padding: 0.25em 0.5em;
+	}
+	#input{
+		width: 6em;
+	padding: 5px;
+	border: solid 1px #eee;
+	box-shadow: inset 1px 1px 2px 0 #707070;
+	font-size: 1.1em;
+	transition: box-shadow .3s;
+	}
+	.padd{
+		padding: 10px;
+	}
+</style>
+</head>
+
+<body>
+<div class="container">
+<h1>Przelew</h1>
+<form method="post" action="myForm.php">
+<div class="padd">
+	<span>Tytuł:&nbsp;        </span> <input id="input" type="text"     name="title" size="16" minlength="4" maxlength="500"><br>
+	<span>Numer konta:&nbsp; </span> <input id="input" type="number"     name="numer" size="16" minlength="4" maxlength="16"><br>
+	<span>Kwota:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&emsp; </span> <input id="input" type="number" name="cash" min="0" size="20" maxlength="20"> <br>
+</div>
+	<input type="submit"  class="button" value="Wyślij przelew">
+</form>
+
+</div>
+</body>
+</html>

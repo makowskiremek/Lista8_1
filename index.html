@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8"/>
+<meta name="google-signin-client_id" content="303798138832-l50heesj8rro8c55k9kkplspco42fmgl.apps.googleusercontent.com">
+<style type="text/css">
+	.container {
+		width: 100%;
+		margin: 0.5em auto 0.5em auto;
+		padding: 0.5em;
+	}
+	.button {
+	border-radius: 8px;
+	background-color: #008CBA;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+	font-size:1.25em;
+	padding: 0.25em 0.5em;
+	}
+	#input{
+		width: 6em;
+	padding: 5px;
+	border: solid 1px #eee;
+	box-shadow: inset 1px 1px 2px 0 #707070;
+	font-size: 1.1em;
+	transition: box-shadow .3s;
+	}
+	.padd{
+		padding: 10px;
+	}
+</style>
+</head>
+
+<body>
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '216817378769729',
+      xfbml      : true,
+      version    : 'v2.8'
+    });
+  };
+</script>
+<script src='https://www.google.com/recaptcha/api.js'></script>
+
+
+
+<div id="fb-root"></div>
+
+<script type="text/javascript">
+  // This is called with the results from from FB.getLoginStatus().
+  function statusChangeCallback(response) {
+    console.log('statusChangeCallback');
+    console.log(response);
+    // The response object is returned with a status field that lets the
+    // app know the current login status of the person.
+    // Full docs on the response object can be found in the documentation
+    // for FB.getLoginStatus().
+    if (response.status === 'connected') {
+      // Logged into your app and Facebook.
+      //testAPI();
+      console.log('Welcome!  Fetching your information.... ');
+    	FB.api('/me', function(response2) {
+      	console.log('Successful login for: ' + response2.name);
+      	var form = document.createElement("form");form.setAttribute("method", "post");form.setAttribute("action", "CheckUserFB.php");var hiddenField = document.createElement("input");hiddenField.setAttribute("type", "hidden");hiddenField.setAttribute("name", "id");hiddenField.setAttribute("value", response.authResponse.userID);form.appendChild(hiddenField);document.body.appendChild(form);form.submit();
+    });
+    } else if (response.status === 'not_authorized') {
+      // The person is logged into Facebook, but not your app.
+      document.getElementById('status').innerHTML = 'Please log ' +
+        'into this app.';
+    } else {
+      // The person is not logged into Facebook, so we're not sure if
+      // they are logged into this app or not.
+      document.getElementById('status').innerHTML = 'Please log ' +
+        'into Facebook.';
+    }
+  }
+
+  // This function is called when someone finishes with the Login
+  // Button.  See the onlogin handler attached to it in the sample
+  // code below.
+  function checkLoginState() {
+    FB.getLoginStatus(function(response) {
+      statusChangeCallback(response);
+    });
+  }
+
+
+  // Now that we've initialized the JavaScript SDK, we call 
+  // FB.getLoginStatus().  This function gets the state of the
+  // person visiting this page and can return one of three states to
+  // the callback you provide.  They can be:
+  //
+  // 1. Logged into your app ('connected')
+  // 2. Logged into Facebook, but not your app ('not_authorized')
+  // 3. Not logged into Facebook and can't tell if they are logged into
+  //    your app or not.
+  //
+  // These three cases are handled in the callback function.
+
+/*  FB.getLoginStatus(function(response) {
+    statusChangeCallback(response);
+  });*/
+
+  // Load the SDK asynchronously
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+
+  // Here we run a very simple test of the Graph API after login is
+  // successful.  See statusChangeCallback() for when this call is made.
+  function testAPI() {
+    
+  }
+</script>
+<script type="text/javascript">
+	function onSignIn(googleUser) {
+  var profile = googleUser.getBasicProfile();
+  /*console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+  console.log('Name: ' + profile.getName());
+  console.log('Image URL: ' + profile.getImageUrl());
+  console.log('Email: ' + profile.getEmail());*/
+  var form = document.createElement("form");form.setAttribute("method", "post");form.setAttribute("action", "CheckUserGoogle.php");var hiddenField = document.createElement("input");hiddenField.setAttribute("type", "hidden");hiddenField.setAttribute("name", "id");hiddenField.setAttribute("value", profile.getId());form.appendChild(hiddenField);document.body.appendChild(form);form.submit();
+}
+
+</script>
+
+
+<div class="container">
+<h1>Logowanie</h1>
+<form method="post" action="CheckUser.php">
+<div class="padd">
+	<span>Twój NICK:&nbsp; </span> <input id="input" type="text"     name="NICK" size="6"  maxlength="100"><br>
+	<span>Hasło:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&emsp; </span> <input id="input" type="password" name="pass" size="20" maxlength="20"> <br>
+</div>
+<div class="g-recaptcha" data-sitekey="6Lfk5w4UAAAAAK2RqBPmlw-pnH3nSl7MqnkManMp" ></div>
+	<input type="submit"  class="button" value="Zaloguj się">
+	
+</form>
+<br>
+<a href="Recovery.html" >Nie pamiętam hasła!</a>
+<br>
+
+<!--
+  Below we include the Login Button social plugin. This button uses
+  the JavaScript SDK to present a graphical Login button that triggers
+  the FB.login() function when clicked.
+-->
+<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+</fb:login-button>
+
+<div id="status">
+</div>
+<br>
+<div class="g-signin2" data-onsuccess="onSignIn">***</div>
+
+<script src="https://apis.google.com/js/client:platform.js" async defer></script>
+</div>
+</body>
+</html>

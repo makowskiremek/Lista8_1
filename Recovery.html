@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8"/>
+</head>
+<body>
+<h1>Odzyskiwanie hasła</h1>
+<form method="post" action="Mail.php">
+<div>
+	<span>Twój NICK:&nbsp; </span> <input id="input" type="text"     name="NICK" size="6"  maxlength="100"><br>
+</div>
+	<input type="submit"  class="button" value="Wyślij Kod">
+</form>
+<br><br>
+<h1>Resetowanie Hasła</h1>
+<form method="post" action="Reset.php">
+<div>
+	<span>Kod:&nbsp; </span> <input id="input" type="text"     name="code" size="6"  maxlength="100"><br>
+	<span>Nowe hasło:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&emsp; </span> <input id="input" type="password" name="pass" size="20" maxlength="20"> <br>
+	<span>Potwierdź hasło:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&emsp; </span> <input id="input" type="password" name="pass2" size="20" maxlength="20"> <br>
+</div>
+	<input type="submit"  class="button" value="Resetuj hasło">
+</form>
+</body>
+</html>
